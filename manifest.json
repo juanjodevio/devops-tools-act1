@@ -1,54 +1,49 @@
 {
-    "variables": {
-      "aws_access_key": env("AWS_ACCESS_KEY"),
-      "aws_secret_key": env("AWS_SECRET_KEY")
-    },
-    "builders": [
-      {
-        "type": "amazon-ebs",
-        "access_key": "{{user `aws_access_key`}}",
-        "secret_key": "{{user `aws_secret_key`}}",
-        "region": "us-east-1",
-		"source_ami": "ami-0b0ea68c435eb488d",
-        "instance_type": "t2.micro",
-		"ssh_username": "ubuntu",
-        "ami_name": "MEAN_STACK_AWS-{{isotime | clean_resource_name}}",
-		"ssh_timeout": "2m",
-        "vpc_id": "vpc-0d56329e471874b71",
-        "subnet_id": "subnet-033b75e1382aa56d2",
-		"security_group_id": "sg-0ea53b5195881ccf0",
-		"associate_public_ip_address": true,
-        "run_tags": {
-          "Name": "app-server-packer"
-        },
-        "tags": {
-          "Name": "appserver"
-        }
-        
+  "variables": {
+    "aws_access_key": "AKIAXM3G5E5RZDS4T5BM",
+    "aws_secret_key": "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"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "us-east-1",
+      "source_ami": "ami-04505e74c0741db8d",
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "ami_name": "MEAN_STACK_AWS-{{isotime | clean_resource_name}}",
+      "ssh_timeout": "2m",
+      "ssh_interface": "private_ip",
+      "associate_public_ip_address": true,
+      "run_tags": {
+        "Name": "app-server-packer"
+      },
+      "tags": {
+        "Name": "appserver"
       }
-    ],
-    "provisioners": [
-    
-         {
-			 "type": "file",
-            "source": "hello.js",
-            "destination": "/tmp/hello.js"
-		 },
-		 {
-			 "type": "file",
-            "source": "nginx.conf",
-            "destination": "/tmp/nginx.conf"
-		 },
-		 {
-			"type": "shell",
-			"scripts": "packages.sh"
-			}
-      ],
-	  "post-processors": [
-        {
-            "type": "manifest",
-            "output": "output.json"
-        }
-    ]
-    
-  }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "hello.js",
+      "destination": "/tmp/hello.js"
+    },
+    {
+      "type": "file",
+      "source": "nginx.conf",
+      "destination": "/tmp/nginx.conf"
+    },
+    {
+      "type": "shell",
+      "scripts": "packages.sh"
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "manifest",
+      "output": "output.json"
+    }
+  ]
+}
