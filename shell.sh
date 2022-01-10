@@ -13,10 +13,17 @@ sudo npm install -g pm2
 sudo apt update
 sudo apt-get install nginx -y
 systemctl enable nginx
+sudo rm /etc/nginx/sites-enabled/default
+sudo mv /tmp/node /etc/nginx/sites-available/node
+sudo ln -s /etc/nginx/sites-available/node /etc/nginx/sites-enabled/node
+# sudo systemctl restart nginx
+service nginx restart
+
+# Setup firewall
 sudo ufw allow ssh
 sudo ufw allow http
 sudo ufw allow https
-sudo ufu enable
+ufw enable
 
 
 # Configure pm2 to run hello on startup
