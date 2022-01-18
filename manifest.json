@@ -1,7 +1,7 @@
 {
   "variables": {
-    "aws_access_key": "{{env ´AWS_ACCESS_KEY´}}",
-    "aws_secret_key": "{{env ´AWS_SECRET_KEY´}}"
+    "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_KEY`}}"
   },
   "builders": [
     {
@@ -12,7 +12,7 @@
       "source_ami": "ami-04505e74c0741db8d",
       "instance_type": "t2.micro",
       "ssh_username": "ubuntu",
-      "ami_name": "MEAN_STACK_AWS-{{isotime | clean_resource_name}}",
+      "ami_name": "Nginx NodeJS - {{isotime | clean_resource_name}}",
       "ssh_timeout": "2m",
       "run_tags": {
         "Name": "app-server-packer"
